@@ -1,17 +1,35 @@
 import kagglehub
 from pathlib import Path
 import shutil
+from utils.setup_logger import logger
 
-# Download latest version
-download_path = kagglehub.dataset_download("saidnizam/messy-e-commerce-dataset")
+error_objects = []
 
-# Project's raw data directory
-raw_data_dir = Path(__file__).parent.parent / "data" / "raw"
-raw_data_dir.mkdir(parents=True, exist_ok=True)
+def download_dataset():
+    try:
+        logger.info("Started downloading the dataset from Kaggle...")
+        # Download latest version
+        download_path = kagglehub.dataset_download("saidnizam/messy-e-commerce-dataset")
 
-# Copy downloaded files to the raw data directory
-for file in Path(download_path).iterdir():
-    if file.is_file():
-        shutil.copy(file, raw_data_dir / file.name)
+        # Project's raw data directory
+        raw_data_dir = Path(__file__).parent.parent / "data" / "raw"
+        raw_data_dir.mkdir(parents=True, exist_ok=True)
 
-print(f"Dataset downloaded to:, {raw_data_dir.resolve()}")
+        # Copy downloaded files to the raw data directory
+        for file in Path(download_path).iterdir():
+            if file.is_file():
+                shutil.copy(file, raw_data_dir / file.name)
+
+        logger.info(f"Dataset downloaded to: {raw_data_dir.resolve()}")
+
+    except Exception as error:
+        error_objects.append(error)
+        logger.error(f"Error downloading dataset: {error}")
+    finally:
+        if len(error_objects) > 0:
+            raise Exception(f"Encountered {len(error_objects)} errors during dataset download. Check logs for details.")
+        else:
+            logger.info("Dataset download completed successfully.")
+        
+if __name__ == "__main__":
+    download_dataset()
