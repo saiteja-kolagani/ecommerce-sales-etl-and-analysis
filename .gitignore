@@ -9,3 +9,11 @@ data/raw/
 
 # Processed/generated data
 data/processed/
+
+# Logs
+logs/
+
+# Python cache
+__pycache__/
+*.pyc
+*.py[cod]
