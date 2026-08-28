@@ -21,12 +21,12 @@ def get_snowflake_connection():
 
         # Create a Snowflake connection
         connection = snowflake.connector.connect(
-            user=user,
-            password=password,
-            account=account,
-            warehouse=warehouse,
-            database=database,
-            schema=schema
+            user = user,
+            password = password,
+            account = account,
+            warehouse = warehouse,
+            database = database,
+            schema = schema
         )
 
         logger.info("Snowflake connection created successfully.")
