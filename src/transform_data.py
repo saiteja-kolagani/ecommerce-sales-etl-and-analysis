@@ -79,6 +79,9 @@ def transform_customers(df):
                 f"{remaining_missing_age} missing values remain."
             )
 
+    # Convert age to integer
+    df["age"] = df["age"].astype(int)
+
     logger.info(
         f"Customers transformation completed. "
         f"Rows after transformation: {len(df)}"

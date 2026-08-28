@@ -4,6 +4,8 @@ from src.inspect_data import inspect_data
 from src.validate_schema import validate_datasets
 from config.schema import EXPECTED_SCHEMAS
 from src.transform_data import transform_data
+from src.validate_transformed_data import validate_transformed_data
+from src.save_processed_data import save_processed_data
 
 def main():
     try:
@@ -26,6 +28,16 @@ def main():
         logger.info("Calling transform_data() to transform datasets...")
         transformed_data = transform_data(dataframes)
         logger.info("transform_data() completed successfully.")
+
+        # Step 4: Validate transformed datasets
+        logger.info("Calling validate_transformed_data() to validate transformed datasets...")
+        validate_transformed_data(transformed_data)
+        logger.info("validate_transformed_data() completed successfully.")
+
+        # Step 5: Save processed datasets
+        logger.info("Calling save_processed_data() to save processed datasets...")
+        save_processed_data(transformed_data)
+        logger.info("save_processed_data() completed successfully.")
 
         logger.info("Pipeline completed successfully without errors.")
 
