@@ -6,10 +6,9 @@ from config.schema import EXPECTED_SCHEMAS
 from src.transform_data import transform_data
 from src.validate_transformed_data import validate_transformed_data
 from src.save_processed_data import save_processed_data
-from src.utils.snowflake_connection import get_snowflake_connection
+from src.load_data import load_data
 
 def main():
-    conection = None
 
     try:
         logger.info("Starting the pipeline...")
@@ -42,21 +41,17 @@ def main():
         save_processed_data(transformed_data)
         logger.info("save_processed_data() completed successfully.")
 
-        logger.info("Pipeline completed successfully without errors.")
+        # Step 6: Load processed data into Snowflake
+        logger.info("Calling load_data() to save processed datasets...")
+        load_data()
+        logger.info("load_data() completed successfully.")
 
-        # Step 6: Establish Snowflake connection
-        logger.info("Establishing Snowflake connection...")
-        connection = get_snowflake_connection()
-        logger.info("Snowflake connection established successfully.")
+        logger.info("Pipeline completed successfully without errors.")
 
     except Exception:
         logger.exception("Pipeline failed due to an error.")
 
     finally:
-        if connection:
-            connection.close()
-            logger.info("Snowflake connection closed.")
-        
         logger.info("Pipeline execution completed.")
 
 if __name__ == '__main__':
