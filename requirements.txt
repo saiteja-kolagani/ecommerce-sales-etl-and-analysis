@@ -1,3 +1,5 @@
+python=3.13.15
 kagglehub==1.0.2
 python-dotenv==1.2.3
 pandas==3.0.5
+snowflake-connector-python==4.7.2
