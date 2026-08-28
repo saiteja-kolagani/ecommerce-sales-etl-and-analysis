@@ -1,3 +1,4 @@
+from datetime import datetime
 from src.utils.setup_logger import logger
 from src.data_extract import extract_dataset
 from src.inspect_data import inspect_data
@@ -9,9 +10,11 @@ from src.save_processed_data import save_processed_data
 from src.load_data import load_data
 
 def main():
+    job_start_time = datetime.now().astimezone()
 
     try:
         logger.info("Starting the pipeline...")
+        logger.info(f"Pipeline started at: {job_start_time}")
 
         # Step 1: Extract datasets
         logger.info("Calling extract_dataset() to extract datasets...")
@@ -43,7 +46,7 @@ def main():
 
         # Step 6: Load processed data into Snowflake
         logger.info("Calling load_data() to save processed datasets...")
-        load_data()
+        load_data(job_start_time)
         logger.info("load_data() completed successfully.")
 
         logger.info("Pipeline completed successfully without errors.")
