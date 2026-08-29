@@ -18,12 +18,12 @@ def main():
 
         # Step 1: Extract datasets
         logger.info("Calling extract_dataset() to extract datasets...")
-        extract_dataset()
+        extract_dataset(job_start_time)
         logger.info("extract_dataset() completed successfully.")
 
         # Step 2: Inspect and validate datasets
         logger.info("Calling inspect_data() to inspect datasets...")
-        dataframes = inspect_data()
+        dataframes = inspect_data(job_start_time)
         logger.info("inspect_data() completed successfully.")
         logger.info("Calling validate_datasets() to validate datasets...")
         validate_datasets(dataframes, EXPECTED_SCHEMAS)
@@ -41,7 +41,7 @@ def main():
 
         # Step 5: Save processed datasets
         logger.info("Calling save_processed_data() to save processed datasets...")
-        save_processed_data(transformed_data)
+        save_processed_data(transformed_data, job_start_time)
         logger.info("save_processed_data() completed successfully.")
 
         # Step 6: Load processed data into Snowflake
