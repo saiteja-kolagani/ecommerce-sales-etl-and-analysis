@@ -17,3 +17,6 @@ logs/
 __pycache__/
 *.pyc
 *.py[cod]
+
+# Instructions
+Instructions
